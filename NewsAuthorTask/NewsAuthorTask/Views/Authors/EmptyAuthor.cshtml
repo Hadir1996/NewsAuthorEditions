@@ -1,0 +1,24 @@
+﻿
+@{
+    ViewBag.Title = "EmptyAuthor";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@if (Request.IsAuthenticated)
+{
+<br />
+<br />
+
+<div class="jumbotron" style="height:auto">
+    <h2>there is no added authors yet !</h2>
+    <br />
+    @Html.ActionLink("Back To Editing !", "Home", "Authors", null, null)
+    <br />
+    <br />
+    @Html.ActionLink("Add Author?", "createauthor", "Authors", null, null)
+</div>
+}
+else
+{
+    <h2>You need to login first!</h2>
+    <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+}

@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewBag.Title = "Cantdelete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+@if (Request.IsAuthenticated)
+{
+
+
+<br/>
+<br/>
+<h2>Can't delete this author , Back To editing !</h2>
+@Html.ActionLink("Back", "showauthors", "Authors")
+}
+else
+{
+    <h2>You need to login first!</h2>
+    <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+}

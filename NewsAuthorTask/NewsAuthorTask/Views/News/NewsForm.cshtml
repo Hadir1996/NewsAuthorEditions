@@ -1,0 +1,55 @@
+﻿@model NewsAuthorTask.Models.NewsAuthorViewModel
+
+@{
+    ViewBag.Title = "NewsForm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Request.IsAuthenticated)
+{
+<h2>Add News </h2>
+
+using (Html.BeginForm("SaveNews", "News", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    
+    <div class="form-group">
+        @Html.LabelFor(m => m.news.newstitle)
+        @Html.TextBoxFor(m => m.news.newstitle, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.news.newstitle)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.news.publicationDate)
+        @Html.TextBoxFor(m => m.news.publicationDate, new { @class = "form-control"  })
+        @Html.ValidationMessageFor(m => m.news.publicationDate)
+    </div>
+   
+    <div class="form-group">
+        @Html.LabelFor(m => m.news.Authorid)
+        @Html.DropDownListFor(m => m.news.Authorid, new SelectList(@Model.author, "Id", "Name"), "Select Author name", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.news.Authorid)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.news.newscontent)
+        @Html.TextAreaFor(m => m.news.newscontent, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.news.newscontent)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.news.newsimg, htmlAttributes: new { @class = "control-label col-md-2" })
+
+        <input type="file" name="newsimg" accept="image/*" required />
+        @Html.ValidationMessageFor(m => m.news.newsimg)
+    </div>
+     
+    @Html.HiddenFor(m => m.news.id)
+    @Html.HiddenFor(m => m.news.creationDate,new {  @Value = @DateTime.Now.ToShortDateString()})
+    <button type="submit" class="btn btn-primary">Save</button>
+}
+}
+else
+{
+<h2>You need to login first!</h2>
+<li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
